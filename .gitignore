@@ -233,11 +233,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-src/EnchantNext/wwwroot
-!src/EnchantNext/wwwroot/index.html
-
-src/EnchantNext/Client/src/apiViewModels.d.ts
-
 .awcache
 
 npm-debug.log
