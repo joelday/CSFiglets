@@ -24,7 +24,7 @@ namespace CSFiglet
 			"Umlaut o",
 			"Umlaut u",
 			"Ess-zed"
-		}; 
+		};
 		#endregion
 
 		#region Public Properties
@@ -94,7 +94,7 @@ namespace CSFiglet
 		}
 
 		public FigletFont(string file)
-			: this(new StreamReader(file)) { }
+			: this(new StreamReader(File.OpenRead(file))) { }
 
 		private CharInfo ReadCharInfo(StreamReader sr, int value, string comment)
 		{
@@ -109,37 +109,6 @@ namespace CSFiglet
 				Comments += sr.ReadLine() + "\n";
 			}
 		}
-		#endregion
-
-		#region Public Static Functions
-		/// <summary>
-		/// Return a figlet font from it's friendly name
-		/// </summary>
-		/// <param name="name">Friendly name for the font</param>
-		/// <returns>Figlet font corresponding to the friendly name</returns>
-		public static FigletFont FigletFromName(string name)
-		{
-			var resourceName = EmbeddedFilePrefix + name + EmbeddedFileExtension;
-			if (resourceName == null)
-			{
-				throw new ArgumentException("FigletFromName has invalid name");
-			}
-			var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-			Debug.Assert(resourceStream != null, "resourceStream != null");
-			var sr = new StreamReader(resourceStream);
-			return new FigletFont(sr);
-		}
-
-		/// <summary>
-		/// Return all the internal friendly names available
-		/// </summary>
-		/// <returns>List of all internal friendly names</returns>
-		public static List<string> Names()
-		{
-			var prefixLength = EmbeddedFilePrefix.Length;
-			var names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-			return names.Select(name => name.Substring(prefixLength, name.LastIndexOf('.') - prefixLength)).ToList();
-		} 
 		#endregion
     }
 }
